@@ -1,9 +1,11 @@
-require('dotenv').config();
-const axios = require("axios");
-const fs = require("fs");
-const FormData = require("form-data");
+import dotenv from "dotenv";
+import axios from "axios";
+import fs from "fs";
+import FormData from "form-data";
 
-async function transcribeAudio(filePath) {
+dotenv.config();
+
+export async function transcribeAudio(filePath) {
     try {
         console.log("🔄 Sending file to OpenAI...");
 
@@ -27,6 +29,3 @@ async function transcribeAudio(filePath) {
         console.error("❌ Error:", error.response ? error.response.data : error.message);
     }
 }
-
-// Run the test
-transcribeAudio("test.wav");
