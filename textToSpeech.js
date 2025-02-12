@@ -1,42 +1,56 @@
 import dotenv from "dotenv";
 import axios from "axios";
 import fs from "fs";
-import player from "play-sound";
+import { exec } from "child_process";
 
 dotenv.config();
-const audioPlayer = player();
 
 export async function speak(text) {
-    try {
-        console.log("🔊 Generating speech...");
+    console.log("🔊 Generating speech with ElevenLabs...");
 
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    const voiceId = "OWd4FHqvuDkDQdXVlW7Z"; // Try "Bella", "Domi", etc.
+
+    try {
         const response = await axios.post(
-            "https://api.openai.com/v1/audio/speech",
+            `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`,
             {
-                model: "tts-1",
-                input: text,
-                voice: "shimmer"  // Other voices: "echo", "fable", "onyx", "nova", "shimmer"
+                text: text,
+                model_id: "eleven_multilingual_v2",
+                voice_settings: { 
+                    stability: 0.75,         // 0.5-0.75 keeps it more natural
+                    similarity_boost: 0.75,  // Closer to original voice
+                    style_exaggeration: 0.75 // Lowering exaggeration = slower, calmer tone
+                }
             },
             {
                 headers: {
-                    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+                    "xi-api-key": apiKey,
                     "Content-Type": "application/json"
                 },
                 responseType: "arraybuffer"
             }
         );
 
-        // Save the generated audio
+        console.log("📦 Received response type:", typeof response.data);
+
+        // Save audio to a file
         const filePath = "response.mp3";
         fs.writeFileSync(filePath, response.data);
         console.log("✅ Speech saved as response.mp3");
 
         // Play the audio file
-        audioPlayer.play(filePath, (err) => {
+        exec("afplay response.mp3", (err) => {
             if (err) console.error("❌ Audio playback error:", err);
         });
 
     } catch (error) {
-        console.error("❌ TTS Error:", error.response ? error.response.data : error.message);
+        if (error.response) {
+            console.error("❌ ElevenLabs API Error:");
+            console.error("🔹 Status Code:", error.response.status);
+            console.error("🔹 Error Message:", error.response.data);
+        } else {
+            console.error("❌ Request Failed:", error.message);
+        }
     }
 }

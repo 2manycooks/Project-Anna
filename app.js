@@ -5,7 +5,7 @@ import { speak } from "./textToSpeech.js";
 async function runAssistant() {
     console.log("🎙️ Speak now...");
 
-    let transcribedText = await transcribeAudioFromMic(5); // Records 5 seconds
+    let transcribedText = await transcribeAudioFromMic(5);
     console.log("📝 User said:", transcribedText);
 
     let response = await getResponse(transcribedText);
