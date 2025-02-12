@@ -15,7 +15,9 @@
     "dotenv": "^16.4.7",
     "ffmpeg": "^0.0.4",
     "fs": "^0.0.1-security",
+    "mic": "^2.1.2",
     "openai": "^4.83.0",
+    "play-sound": "^1.1.6",
     "readline-sync": "^1.4.10"
   }
 }
