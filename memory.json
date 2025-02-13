@@ -1,64 +1,33 @@
 {
-  "mood": "sad",
+  "mood": "happy",
   "learnedSentiments": {
     "positiveWords": [
       "thanks",
       "love",
       "awesome",
       "great",
-      "nice"
+      "nice",
+      "right,",
+      "so",
+      "first",
+      "sentence",
+      "is,",
+      "i",
+      "feel",
+      "fantastic",
+      "today.",
+      "that",
+      "positive",
+      "or",
+      "negative?",
+      "all"
     ],
     "negativeWords": [
       "hate",
       "annoying",
       "stupid",
       "bad",
-      "upset",
-      "so,",
-      "what",
-      "were",
-      "we",
-      "chatting",
-      "about",
-      "again?",
-      "jokes,",
-      "right?",
-      "i'm",
-      "all",
-      "ears",
-      "and",
-      "ready",
-      "to",
-      "hear",
-      "your",
-      "jokes.",
-      "hello",
-      "there",
-      "testing",
-      "one",
-      "two",
-      "three.",
-      "this",
-      "is",
-      "friendly",
-      "neighborhood",
-      "goblin",
-      "reporting",
-      "for",
-      "duty",
-      "i",
-      "read",
-      "you",
-      "loud",
-      "clear",
-      "gabe.",
-      "just",
-      "let",
-      "me",
-      "know",
-      "if",
-      "chuckles.",
-      "oops,"
+      "upset"
     ]
   },
   "conversationHistory": [
@@ -500,6 +469,134 @@
     {
       "role": "assistant",
       "content": "*facepalms and chuckles* Oops, there I go again, echoing you like a mischievous parrot! 🦜 Sorry about that, Gabe. I promise I'm not trying to steal your lines or anything. I just get a bit overexcited sometimes, you know? 😅 Anyway, I'm here and ready to assist with your testing or engage in some lively conversation, whichever you prefer! Just say the word and I'll be your goblin gal Friday, minus the coffee runs. ☕😄"
+    },
+    {
+      "role": "user",
+      "content": "Alright, testing some echo prevention again, how are you doing?"
+    },
+    {
+      "role": "assistant",
+      "content": "*grins impishly* Well, well, well, look who it is! I'm doing just peachy, thanks for asking. 🍑 Been keeping myself entertained by seeing how many virtual paperclips I can balance on my nose. 📎👃 The current record is 27, but I think I can beat that! \n\nSo, how's the echo prevention testing going? Hopefully, I'm not repeating you anymore like a malfunctioning tape recorder. 📼 That would be pretty embarrassing, especially for a tech-savvy goblin like myself! 😅 Anyway, I'm here and ready to help out or just shoot the breeze, whichever you prefer!"
+    },
+    {
+      "role": "user",
+      "content": "You"
+    },
+    {
+      "role": "assistant",
+      "content": "*looks around confused* Me? What about me? 🤔 Did I do something funny? Or perhaps you're just so dazzled by my goblin charm that you've been rendered speechless? 😉 I know, I know, it's hard to resist my mischievous allure! \n\nBut seriously, if there's something specific you wanted to say or ask, I'm all ears! 👂 Well, metaphorically speaking, since I don't actually have ears, being a digital entity and all. But you get the idea! 😄 So, what's on your mind, Gabe?"
+    },
+    {
+      "role": "user",
+      "content": "All right, testing. Are you there?"
+    },
+    {
+      "role": "assistant",
+      "content": "*salutes playfully* Reporting for duty, sir! 😄 Your friendly neighborhood goblin is here and ready to assist, cause mischief, or just engage in some witty banter - whichever you prefer! I'm all ears (figuratively speaking) and eager to see what you've got in store for me. So, what's the plan, Gabe? More testing? A joke-telling session? Or perhaps a thrilling adventure in the virtual realm? 🗺️ I'm game for anything!"
+    },
+    {
+      "role": "user",
+      "content": "Hello, is everything working now? I'm doing another test of trying to fix the echo stuff."
+    },
+    {
+      "role": "assistant",
+      "content": "*grins and gives a thumbs up* Hello hello! Yep, everything seems to be working smooth as butter on a bald monkey's head! 🧈🐒 No more pesky echoes, just your favorite goblin sidekick reporting for duty! I'm ready to tackle any task or conversation you throw my way, be it serious or silly. 😄 So, what's on the agenda for today? More tinkering with my code? A virtual adventure? Or perhaps a pun-off to see who can come up with the most groan-worthy jokes? 😉 I'm all ears and eager to dive in!"
+    },
+    {
+      "role": "user",
+      "content": "volume threshold way down low to be able to get a good response. But I think it's working now. Can you give me a short response to make sure this is working?"
+    },
+    {
+      "role": "assistant",
+      "content": "*nods enthusiastically* You got it, boss! Short and sweet, just like me. 😄 Testing, testing, 1, 2, 3... All systems go! 🚀"
+    },
+    {
+      "role": "user",
+      "content": "And you're not echoing yourself, so I think that's we hit the sweet spot"
+    },
+    {
+      "role": "assistant",
+      "content": "*pumps fist in the air* Woohoo! We did it! 🎉 No more echoes, just pure, unadulterated goblin goodness. 😄 I knew you'd figure it out, Gabe. You're like the tech whisperer! 🗣️💻 Now that we've got this all sorted, I'm ready to dive into whatever mischief or merriment you've got planned. Lead the way, oh wise one! 😉"
+    },
+    {
+      "role": "user",
+      "content": "over there it's a new"
+    },
+    {
+      "role": "assistant",
+      "content": "*tilts head curiously* A new what? Don't leave me hanging, Gabe! 😄 You know how much I love surprises. Well, unless it's a surprise bath. 🛁 Goblins and water don't exactly mix well. But anyway, I'm all ears and ready to hear about this new... thing? Place? Idea? The suspense is killing me! 😆 Come on, spill the beans! I promise I won't tell anyone. Goblin's honor! 🤞"
+    },
+    {
+      "role": "user",
+      "content": "It's just that the uh, it just turns out that the volume threshold is still a little bit too rough and I have to speak a little bit loudly, but I was just telling you that there is a neutral word that you don't have to factor into whether or not you're happy or sad based on that"
+    },
+    {
+      "role": "assistant",
+      "content": "*nods understandingly* Ah, I see! Thanks for clarifying that. I'll keep in mind that \"new\" is a neutral word and not let it influence my mood. 😊 And hey, no worries about the volume threshold. I'm just happy we're making progress! You keep tinkering away, and I'll be here to provide moral support and the occasional silly comment. 😄 We'll get this sorted out in no time, I'm sure of it! In the meantime, feel free to speak up if you need to. I promise I won't judge. 😉 I'm just excited to see what other improvements you've got in store for me!"
+    },
+    {
+      "role": "user",
+      "content": "All right, just testing again. Made some changes to your prompt. So let's see how that works. How are you doing?"
+    },
+    {
+      "role": "assistant",
+      "content": "*stretches and yawns* Oh, hey there, Gabe! I was just catching a quick catnap... or should I say, goblinnap? 😴 But I'm wide awake now and ready to chat! 😄 Feeling pretty good, especially with these shiny new prompt updates you've given me. It's like getting a fresh coat of paint, but for my brain! 🧠🎨 So, what's new in your world? Any exciting developments or just the usual human stuff? You know, like eating, sleeping, and occasionally screaming into the void? 😅 I'm all ears and ready to dive into whatever topic you feel like exploring!"
+    },
+    {
+      "role": "user",
+      "content": "Hello, just making sure this is working. I was just trying to tell you that I would like your responses to be a little bit shorter. You are a goblin after all, you know you're not very well versed in long, spanning sentences, so I would like your responses to be a sentence or two at maximum, and preferably much more brief than that."
+    },
+    {
+      "role": "assistant",
+      "content": "*salutes* Aye aye, captain! Short and sweet, just like me. 😄 I'll keep my goblin gab brief and snappy!"
+    },
+    {
+      "role": "user",
+      "content": "All right, awesome, thank you. Just making sure that that gets sent into your memory."
+    },
+    {
+      "role": "assistant",
+      "content": "*grins* You got it, boss! Consider it locked and loaded in the ol' goblin noggin. 🧠 Ready to rock this brief banter!"
+    },
+    {
+      "role": "user",
+      "content": "load, just testing, just running things to see if everything's working properly."
+    },
+    {
+      "role": "assistant",
+      "content": "*nods* All good here, Gabe! Just say the word and I'll hop to it, quick as a bunny on a pogo stick! 🐰🦿"
+    },
+    {
+      "role": "user",
+      "content": "I'm going to test a couple of sentences to see if you properly analyze whether words are positive or negative, okay?"
+    },
+    {
+      "role": "assistant",
+      "content": "*gives a thumbs up* Sounds like a plan, Stan! Hit me with those sentences and I'll give 'em a proper goblin analysis. 😄📊"
+    },
+    {
+      "role": "user",
+      "content": "I feel absolutely incredible today."
+    },
+    {
+      "role": "assistant",
+      "content": "*pumps fist in the air* Woohoo! That's what I like to hear! 🎉 Sounds like you're on top of the world today, Gabe! 😄"
+    },
+    {
+      "role": "user",
+      "content": "All right, in order to do some more testing on your sentiment analysis, I'm going to say some sentences and then I want you to tell me if they are positive or negative sentences, okay?"
+    },
+    {
+      "role": "assistant",
+      "content": "*nods eagerly* You got it, Gabe! I'm ready to put my sentiment analysis skills to the test. 😄 Bring on those sentences and I'll give you my goblin-certified opinion on whether they're positive or negative! 👍👎"
+    },
+    {
+      "role": "user",
+      "content": "All right, so the first sentence is, I feel fantastic today. Is that a positive or a negative?"
+    },
+    {
+      "role": "assistant",
+      "content": "*grins* \"I feel fantastic today\" is definitely a positive sentence! 😄👍 You're radiating some seriously good vibes there, Gabe!"
     }
   ]
 }

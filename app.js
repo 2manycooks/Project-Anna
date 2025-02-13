@@ -14,45 +14,48 @@ async function mainLoop() {
     while (true) {
         try {
             console.log("🎤 Starting new recording...");
-            const audioPromise = recordAudio(); // ✅ No need to pass a filename
+            
+            await new Promise(resolve => setTimeout(resolve, 500)); // 🚨 Add a 0.5s delay before re-recording
+            await recordAudio();
 
             console.log("⏳ Processing previous input...");
-            transcribeAudioFromMic() // ✅ No parameter needed
-                .then(async (userInput) => {
-                    if (!userInput || userInput.trim() === "") {
-                        console.log("⚠️ No speech detected, listening again...");
-                        return;
+            const userInput = await transcribeAudioFromMic();
+
+            if (!userInput || userInput.trim() === "") {
+                console.log("⚠️ No speech detected, listening again...");
+                continue;
+            }
+
+            console.log(`👤 You: ${userInput}`);
+
+            // 🚨 Strong Echo Detection - Ignore if input is almost identical to last response
+            if (hasSpoken) {
+                const similarity = levenshtein.get(userInput.toLowerCase(), lastResponse.toLowerCase());
+                const maxLength = Math.max(userInput.length, lastResponse.length);
+
+                if (maxLength > 0) {
+                    let similarityRatio = similarity / maxLength;
+
+                    if (similarityRatio < 0.25) { 
+                        console.log("🔇 Ignoring self-response (echo detected)...");
+                        continue; // Do not process this as input
                     }
+                }
+            }
 
-                    console.log(`👤 You: ${userInput}`);
+            const aiResponse = await getResponse(userInput);
+            console.log(`🤖 Anna: ${aiResponse}`);
 
-                    if (hasSpoken) {
-                        const similarity = levenshtein.get(userInput.toLowerCase(), lastResponse.toLowerCase());
-                        const maxLength = Math.max(userInput.length, lastResponse.length);
-                        if (maxLength > 0 && (similarity / maxLength) < 0.25) {
-                            console.log("🔇 Ignoring self-response (echo detected)...");
-                            return;
-                        }
-                    }
+            lastResponse = aiResponse; // Store the latest response
+            hasSpoken = true;
 
-                    const aiResponse = await getResponse(userInput);
-                    console.log(`🤖 Anna: ${aiResponse}`);
-
-                    lastResponse = aiResponse;
-                    hasSpoken = true;
-
-                    await speak(aiResponse);
-                })
-                .catch(err => console.error("❌ Error transcribing:", err));
-
-            await audioPromise;
+            await speak(aiResponse); // Have Anna respond
 
         } catch (error) {
             console.error("❌ Error in main loop:", error);
         }
     }
 }
-
 
 
 mainLoop(); // Start the loop

@@ -6,11 +6,10 @@ import FormData from "form-data";
 dotenv.config();
 
 async function transcribeAudioFromMic() {
-    const filePath = "audio_cache/live_input.wav"; // ✅ Always reference the correct file
+    const filePath = "audio_cache/live_input.wav"; 
 
     console.log("🔄 Sending file to OpenAI:", filePath);
 
-    // 🚨 Check if file exists and is not empty before sending
     if (!fs.existsSync(filePath)) {
         console.error("❌ ERROR: Audio file does not exist!");
         return "";
@@ -29,13 +28,14 @@ async function transcribeAudioFromMic() {
         const formData = new FormData();
         formData.append("file", fs.createReadStream(filePath));
         formData.append("model", "whisper-1");
+        formData.append("language", "en");  // 🚨 Force English
 
         const response = await axios.post("https://api.openai.com/v1/audio/transcriptions", formData, {
             headers: {
                 "Authorization": `Bearer ${apiKey}`,
                 ...formData.getHeaders()
             },
-            timeout: 30000 // Increase timeout to 30 seconds
+            timeout: 30000
         });
 
         console.log("✅ Transcription received:", response.data.text);
@@ -46,5 +46,6 @@ async function transcribeAudioFromMic() {
         return "";
     }
 }
+
 
 export { transcribeAudioFromMic };

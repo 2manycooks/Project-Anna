@@ -2,19 +2,22 @@ import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 
-// Ensure the audio cache directory exists
 const audioCacheDir = "audio_cache";
 if (!fs.existsSync(audioCacheDir)) {
     fs.mkdirSync(audioCacheDir);
 }
 
-// Define the correct file path
 const outputFile = path.join(audioCacheDir, "live_input.wav");
 
 export default function recordAudio() {
     return new Promise((resolve, reject) => {
-        console.log(`📁 Writing audio to: ${outputFile}`);
+        console.log(`📁 Preparing to write new audio to: ${outputFile}`);
 
+        if (fs.existsSync(outputFile)) {
+            fs.unlinkSync(outputFile);
+        }
+
+        // 🚨 Add a Noise Gate: Ignore sounds below 20% volume
         const rec = spawn("sox", [
             "-d",
             "-t", "wav",
@@ -23,7 +26,8 @@ export default function recordAudio() {
             "-r", "16000",
             "-e", "signed-integer",
             outputFile,
-            "silence", "1", "0.1", "1%", "1", "1.5", "1%"
+            "silence", "1", "0.1", "3%", "1", "1.5", "3%"
+
         ]);
 
         rec.on("close", (code) => {
