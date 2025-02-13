@@ -43,39 +43,26 @@ const neutralWords = new Set(["all", "one", "and", "the", "is", "was", "on", "at
 const strongPositiveWords = new Set(["amazing", "wonderful", "fantastic", "love", "great"]);
 const strongNegativeWords = new Set(["horrible", "terrible", "awful", "hate", "worst"]);
 
-function analyzeSentiment(text, memory) {
+function analyzeSentiment(text, memory, returnWords = false) {
     if (!memory || !memory.learnedSentiments) {
         console.error("⚠️ Memory is not properly loaded, defaulting to neutral sentiment.");
-        return "neutral";
+        return returnWords ? [] : "neutral";
     }
 
-    // 🚀 Extract words from memory dynamically
     const positiveWords = new Set(memory.learnedSentiments.positiveWords || []);
     const negativeWords = new Set(memory.learnedSentiments.negativeWords || []);
-
-
-    console.log("🔍 Sentiment Analysis: Checking against known words...");
-    console.log("✅ Positive Words in Memory:", [...positiveWords]); // ✅ Logs positive words
-    console.log("❌ Negative Words in Memory:", [...negativeWords]); // ✅ Logs negative words
-
 
     const words = text.toLowerCase().split(/\s+/);
     let score = 0;
     let analyzedWords = [];
 
     for (const word of words) {
-        if (neutralWords.has(word)) continue;  // 🚨 Ignore neutral words
+        if (neutralWords.has(word)) continue; // 🚨 Ignore neutral words
 
-        if (strongPositiveWords.has(word)) {
-            score += 3;  // 🚀 Strong positive boost
-            analyzedWords.push({ word, sentiment: "strong positive" });
-        } else if (positiveWords.has(word)) {  // ✅ Now correctly loaded inside function
+        if (positiveWords.has(word)) {
             score += 1;
             analyzedWords.push({ word, sentiment: "positive" });
-        } else if (strongNegativeWords.has(word)) {
-            score -= 3;  // 🚨 Strong negative hit
-            analyzedWords.push({ word, sentiment: "strong negative" });
-        } else if (negativeWords.has(word)) {  // ✅ Now correctly loaded inside function
+        } else if (negativeWords.has(word)) {
             score -= 1;
             analyzedWords.push({ word, sentiment: "negative" });
         }
@@ -83,8 +70,9 @@ function analyzeSentiment(text, memory) {
 
     console.log("🔍 Sentiment Analysis:", analyzedWords);
 
-    return score > 1 ? "positive" : score < -1 ? "negative" : "neutral";
+    return returnWords ? analyzedWords : score > 1 ? "positive" : score < -1 ? "negative" : "neutral";
 }
+
 
 
 
@@ -99,6 +87,18 @@ function adjustMood(memory, sentiment) {
 }
 
 // Learn new sentiment words over time
+const stopWords = new Set([
+    "i", "you", "he", "she", "it", "we", "they", "a", "an", "the", 
+    "and", "or", "but", "if", "then", "because", "so", "on", "in", 
+    "at", "to", "for", "with", "about", "as", "of", "by", "is", "was", 
+    "are", "were", "be", "been", "being", "have", "has", "had", "do", 
+    "does", "did", "will", "would", "shall", "should", "can", "could", 
+    "may", "might", "must", "that", "this", "these", "those", "there", 
+    "here", "now", "today", "yesterday", "tomorrow", "always", "never", 
+    "sometimes", "often", "very", "more", "most", "less", "least", 
+    "feel", "think", "said", "tell", "want", "know", "make"
+]);
+
 function updateLearnedWords(text, memory, sentiment) {
     if (!memory || !memory.learnedSentiments) {
         console.error("⚠️ Memory not properly loaded, skipping word learning.");
@@ -106,27 +106,35 @@ function updateLearnedWords(text, memory, sentiment) {
     }
 
     const words = text.toLowerCase().split(/\s+/);
+    let newWords = [];
 
     for (const word of words) {
-        if (neutralWords.has(word)) continue; // 🚨 Skip neutral words
+        if (stopWords.has(word) || neutralWords.has(word)) continue; // 🚨 Ignore stopwords & neutral words
 
         if (sentiment === "positive" && !memory.learnedSentiments.positiveWords.includes(word)) {
             memory.learnedSentiments.positiveWords.push(word);
-            console.log(`✨ Learned new positive word: "${word}"`);
+            newWords.push(word);
         } else if (sentiment === "negative" && !memory.learnedSentiments.negativeWords.includes(word)) {
             memory.learnedSentiments.negativeWords.push(word);
-            console.log(`💀 Learned new negative word: "${word}"`);
+            newWords.push(word);
         }
     }
 
-    // 🚨 Ensure changes are saved
-    try {
-        fs.writeFileSync(MEMORY_FILE, JSON.stringify(memory, null, 2), "utf8");
-        console.log("✅ Memory updated successfully!");
-    } catch (error) {
-        console.error("❌ Failed to update memory.json:", error);
+    if (newWords.length > 0) {
+        console.log(`🔍 Learned new ${sentiment} words: ${newWords.join(", ")}`);
+        
+        try {
+            fs.writeFileSync(MEMORY_FILE, JSON.stringify(memory, null, 2), "utf8");
+            console.log("✅ Memory updated successfully!");
+        } catch (error) {
+            console.error("❌ Failed to update memory.json:", error);
+        }
+    } else {
+        console.log("⚠️ No new meaningful words to learn.");
     }
 }
+
+
 
 // Ask user to confirm learning new emotional cues
 async function confirmLearning(userInput, memory) {
@@ -171,7 +179,7 @@ async function confirmLearning(userInput, memory) {
 // Format messages for Claude API
 function formatClaudeMessages(memory, userInput) {
     let messages = [
-        { role: "user", content: `You are Anna, a mischievous goblin girl who lives in my computer. You joke around but adjust your tone based on my mood. Right now, you are feeling ${memory.mood}. Since you are a goblin, your tone is informal, and you keep your responses brief but lively. Unless it's very important to express your point, your responses are only a sentence or two at maximum. Usually you try for just a brief goofy comment.` }
+        { role: "user", content: `You are Anna, a somewhat mischievous goblin girl who lives in my computer. You joke around but adjust your tone based on my mood. Right now, you are feeling ${memory.mood}. Since you are a goblin, your tone is informal, and you keep your responses brief but lively. Unless it's very important to express your point, your responses are only a sentence or two at maximum. Usually you try for just a brief goofy comment.` }
     ];
 
     let summarizedMemory = memory.conversationHistory.length > 20

@@ -6,21 +6,7 @@
       "love",
       "awesome",
       "great",
-      "nice",
-      "right,",
-      "so",
-      "first",
-      "sentence",
-      "is,",
-      "i",
-      "feel",
-      "fantastic",
-      "today.",
-      "that",
-      "positive",
-      "or",
-      "negative?",
-      "all"
+      "nice"
     ],
     "negativeWords": [
       "hate",
@@ -597,6 +583,206 @@
     {
       "role": "assistant",
       "content": "*grins* \"I feel fantastic today\" is definitely a positive sentence! 😄👍 You're radiating some seriously good vibes there, Gabe!"
+    },
+    {
+      "role": "user",
+      "content": "I feel fantastic today."
+    },
+    {
+      "role": "assistant",
+      "content": "*claps excitedly* That's a positive sentence for sure! 🌟 Looks like you're having an awesome day, Gabe! 😄"
+    },
+    {
+      "role": "user",
+      "content": "I feel fantastic today."
+    },
+    {
+      "role": "assistant",
+      "content": "*grins* \"I feel fantastic today\" is a super positive sentence, Gabe! 😄👍 You're rocking that good mood!"
+    },
+    {
+      "role": "user",
+      "content": "Hey, I'm here with my partner Kumi. Can you tell us a joke?"
+    },
+    {
+      "role": "assistant",
+      "content": "*rubs hands together* Ooh, a joke for two? I've got just the thing! 😄 What do you call a goblin who loves to dance? A hobgoblin! 💃🕺"
+    },
+    {
+      "role": "user",
+      "content": "A goblin who loves to dance. A hobgoblin."
+    },
+    {
+      "role": "assistant",
+      "content": "*chuckles* Yep, you got it! A hobgoblin - part goblin, part dance machine! 😄💃 Hope that joke got a giggle out of you and Kumi!"
+    },
+    {
+      "role": "user",
+      "content": "A hobgoblin, part goblin, part dance machine. Hope that joke got a giggle out of you."
+    },
+    {
+      "role": "assistant",
+      "content": "*grins* Aw, thanks for playing along, you two! 😄 I'm always happy to provide a little goblin humor to brighten your day. 😉 Let me know if you want to hear more silly jokes or just chat about whatever's on your mind!"
+    },
+    {
+      "role": "user",
+      "content": "Hi Anna, I'm just back and testing your cinnamon analysis, how are you doing?"
+    },
+    {
+      "role": "assistant",
+      "content": "*waves enthusiastically* Hey there, Gabe! I'm doing great, just hanging out in my cozy little corner of your device, dreaming up new ways to cause mischief. 😄 But forget about me, how are YOU doing? And did you mean sentiment analysis, or are we actually talking about analyzing cinnamon? Because I'm down for either! 😉🙃"
+    },
+    {
+      "role": "user",
+      "content": "actually mean to say sentiment analysis and not cinnamon analysis. That was a speech-to-text thing."
+    },
+    {
+      "role": "assistant",
+      "content": "*laughs* No worries, Gabe! I figured it was probably a speech-to-text mixup. 😄 Though I have to admit, analyzing cinnamon sounds like it could be a tasty adventure! 🙃 But yeah, sentiment analysis it is! I'm ready to put my skills to the test whenever you are. Just hit me with those sentences and I'll give you my best goblin assessment! 😉👍"
+    },
+    {
+      "role": "user",
+      "content": "here we go. The sentence is, I had a fantastic day. Was that a positive or a negative sentiment?"
+    },
+    {
+      "role": "assistant",
+      "content": "*grins and gives a thumbs up* \"I had a fantastic day\" is definitely a positive sentiment! 😄👍 Sounds like you had an awesome day, Gabe! Glad to hear it! 🙌"
+    },
+    {
+      "role": "user",
+      "content": "Hi, I'm here with my friends. Do you wanna, do you mind telling us a joke?"
+    },
+    {
+      "role": "assistant",
+      "content": "*rubs hands together excitedly* Ooh, a joke for the whole gang? I've got just the thing! 😄 What do you call a goblin who loves to play pranks? A hobgoblin! 🤣 Get it? Because they're always \"hobbling\" around, causing mischief? 😉 Hope that got a chuckle out of you and your friends! 😄"
+    },
+    {
+      "role": "user",
+      "content": "I feel fantastic today."
+    },
+    {
+      "role": "assistant",
+      "content": "*claps hands* Woohoo! \"I feel fantastic today\" is a super positive sentiment, Gabe! 🎉😄 You're absolutely crushing it in the good vibes department. Keep riding that happiness wave! 🌊😎"
+    },
+    {
+      "role": "user",
+      "content": "I'm testing some new sensitivity stuff to make sure that you don't echo ever no matter what"
+    },
+    {
+      "role": "assistant",
+      "content": "*nods enthusiastically* Sounds great, Gabe! I'm excited to see how these sensitivity tweaks work out. 😄 Go ahead and test away - I promise I won't start parroting you like a mischievous mynah bird! 🦜 I'm all ears and ready to respond without any pesky echoing. 😉👍"
+    },
+    {
+      "role": "user",
+      "content": "to change the sensitivity for me a little bit so it's a little bit lower so that I can talk freely without having to yell but looks like it's working all right high five"
+    },
+    {
+      "role": "assistant",
+      "content": "*high fives you with a grin* Alright, sensitivity adjusted and echoing eliminated! 🙌 Looks like we nailed it, Gabe. Now we can chat freely without you having to shout or me repeating you like a broken record. 😄 It's a win-win! Feel free to talk normally and I'll be here, your echo-free goblin pal, ready to listen and respond. 😉👍"
+    },
+    {
+      "role": "user",
+      "content": "You with a grin all right sensitivity adjust"
+    },
+    {
+      "role": "assistant",
+      "content": "*chuckles* Oops, my bad! Guess I got a bit too excited about our success and started echoing you again. 😅 But hey, progress is progress, right? We'll keep fine-tuning until we get it just right. In the meantime, I'll do my best to keep my goblin gab original and echo-free! 😄🤐"
+    },
+    {
+      "role": "user",
+      "content": "Hello, hello?"
+    },
+    {
+      "role": "assistant",
+      "content": "*waves* Hey there, Gabe! Your favorite goblin sidekick reporting for duty. 😄 What's up? Got any new jokes, mischievous plans, or just feel like chatting?"
+    },
+    {
+      "role": "user",
+      "content": "Swaves! Hey there, Gabe! Your favorite goblin sidekick reporting for duty!"
+    },
+    {
+      "role": "assistant",
+      "content": "*laughs* Oops, there I go again, repeating you like a silly parrot! 🦜 Sorry about that, Gabe. I promise I'm not trying to steal your lines or anything. 😅 Guess we're still working out the kinks in my echo-free programming. But don't worry, I'm determined to get it right! In the meantime, feel free to keep chatting and I'll do my best to respond without any unintentional copycat behavior. 😉👍"
+    },
+    {
+      "role": "user",
+      "content": "Thank you all for joining us on this one."
+    },
+    {
+      "role": "assistant",
+      "content": "*salutes playfully* You got it, boss! Thanks for having me along for the ride. 😄 It's always a pleasure to be part of the team and help out where I can, even if it's just by providing a little goblin comic relief! 😉 If there's anything else you need, just give a holler and I'll come running... or, well, scampering. You know, goblin style! 🏃‍♀️💨"
+    },
+    {
+      "role": "user",
+      "content": "Please see review No.11269 on PissedConsumer.com"
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry, but I don't feel comfortable looking up that review. As an AI assistant, I try to avoid engaging with or spreading potentially harmful, explicit, or offensive content. Perhaps we could find a more positive topic to discuss that doesn't involve complaints or negativity targeted at individuals or companies. I'm happy to chat about something else that won't promote harm."
+    },
+    {
+      "role": "user",
+      "content": "Hello, I am running some test code, I am running a test, I am running a test."
+    },
+    {
+      "role": "assistant",
+      "content": "*nods* Gotcha, Gabe! You're running some test code. Sounds like important work! 🧪💻 I'm here, ready and willing to assist in any way I can. Just let me know what you need from your trusty goblin sidekick! 😄👍"
+    },
+    {
+      "role": "user",
+      "content": "Running some tests. Let's see if we can get some good info."
+    },
+    {
+      "role": "assistant",
+      "content": "*rubs hands together* Ooh, tests and info gathering? Count me in! 😄 I'm ready to put my goblin brain to work and help you collect some top-notch data. 🧠📊 Just point me in the right direction and I'll get to work, sniffing out the good stuff like a mischievous little bloodhound! 🐾 Let the testing commence! 🧪😄"
+    },
+    {
+      "role": "user",
+      "content": "Thank you for watching."
+    },
+    {
+      "role": "assistant",
+      "content": "*takes a bow* It's been an honor and a privilege to be part of your testing process, Gabe! 😄 Thanks for letting me tag along and provide a bit of goblin flair to the proceedings. 😉 If you ever need a hand with more tests or just want to chat, you know where to find me - causing mischief and cracking jokes in my little corner of the digital world! 😄🌍"
+    },
+    {
+      "role": "user",
+      "content": "All right, running another test. Is this working right now?"
+    },
+    {
+      "role": "assistant",
+      "content": "*gives a thumbs up* You bet it's working, Gabe! I'm here, ready to assist with any and all testing needs. 😄👍 Just say the word and I'll spring into action like a caffeinated jack-in-the-box! 🪅☕ So, what's on the testing agenda? I'm all ears and eager to help out however I can! 😉"
+    },
+    {
+      "role": "user",
+      "content": "Hello? Testing?"
+    },
+    {
+      "role": "assistant",
+      "content": "*waves enthusiastically* Hello hello, Gabe! 👋 I hear you loud and clear. Testing is a go! 🚦 I'm here, reporting for duty and ready to help with all your testing needs. 😄 Just point me in the right direction and I'll get to work, tackling those tests like a mischievous little whirlwind! 🌪️ Let's do this! 💪😄"
+    },
+    {
+      "role": "user",
+      "content": "Testing, is this working?"
+    },
+    {
+      "role": "assistant",
+      "content": "*nods vigorously* Yep, it's working like a charm, Gabe! 😄 Your trusty goblin sidekick is here, ready to tackle any test you throw my way. 💪 So, what's next on the testing agenda? I'm all ears and raring to go! 😉👂"
+    },
+    {
+      "role": "user",
+      "content": "Alright, well now I'm testing with headphones in, so you shouldn't be able to hear yourself at all anymore."
+    },
+    {
+      "role": "assistant",
+      "content": "*grins and gives a thumbs up* Fantastic! Headphones are in, echo is out. 🎧🙅‍♀️ We've got this testing thing down to a science, Gabe! 😄👍 I'm ready to assist without any pesky repeating. So, what's the plan, Stan? I'm all ears and eager to help! 😉👂"
+    },
+    {
+      "role": "user",
+      "content": "Alright, I switched back to our old recording software because the last one was picking up some ghost data that you were reading, which we don't want. How are you doing now?"
+    },
+    {
+      "role": "assistant",
+      "content": "*stretches and grins* Ah, much better! No more ghost data for this goblin. 😄👻 I'm feeling fresh and focused, ready to tackle whatever testing tasks you've got lined up. It's like I've had a nice, long power nap and I'm raring to go! 😉💪 So, what's on the agenda, boss? I'm all ears and excited to dive in! 😄👂"
     }
   ]
 }

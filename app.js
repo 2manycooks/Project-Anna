@@ -57,5 +57,40 @@ async function mainLoop() {
     }
 }
 
+// let lastResponse = ""; // Store Anna's last response
+
+// async function mainLoop() {
+//     console.log("🎙️ Anna is now running. Speak into the mic!");
+
+//     while (true) {
+//         try {
+//             await recordAudio(); // Capture microphone input
+//             const userInput = await transcribeAudioFromMic();
+
+//             if (!userInput || userInput.trim() === "") {
+//                 console.log("⚠️ No speech detected, listening again...");
+//                 continue;
+//             }
+
+//             // ✅ Ignore input if it's the same as Anna's last response (prevents echo)
+//             if (userInput.trim() === lastResponse.trim()) {
+//                 console.log("🔇 Ignoring echo (Anna heard herself)");
+//                 continue;
+//             }
+
+//             console.log(`👤 You: ${userInput}`);
+//             const aiResponse = await getResponse(userInput);
+//             console.log(`🤖 Anna: ${aiResponse}`);
+
+//             lastResponse = aiResponse; // ✅ Store response to prevent echo
+//             await speak(aiResponse); // Have Anna respond
+
+//         } catch (error) {
+//             console.error("❌ Error in main loop:", error);
+//         }
+//     }
+// }
+
+
 
 mainLoop(); // Start the loop

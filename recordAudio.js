@@ -14,24 +14,26 @@ export default function recordAudio() {
         console.log(`📁 Preparing to write new audio to: ${outputFile}`);
 
         if (fs.existsSync(outputFile)) {
+            console.log("🗑️ Deleting previous audio file...");
             fs.unlinkSync(outputFile);
         }
 
-        // 🚨 Add a Noise Gate: Ignore sounds below 20% volume
-        const rec = spawn("sox", [
-            "-d",
-            "-t", "wav",
-            "-b", "16",
-            "-c", "1",
-            "-r", "16000",
-            "-e", "signed-integer",
-            outputFile,
-            "silence", "1", "0.1", "3%", "1", "1.5", "3%"
+        console.log(`🔍 Attempting to record from microphone using Sox...`);
 
+        const rec = spawn("sox", [
+            "-d",              // ✅ Use default input device (your mic)
+            "-c", "1",         // ✅ Mono audio
+            "-r", "16000",     // ✅ 16kHz sample rate
+            "-t", "wav",       // ✅ WAV format
+            outputFile,
+            "silence", "1", "0.1", "1%", "1", "1.5", "1%" // ✅ Auto-stop after 1.5s of silence
         ]);
 
-        rec.on("close", (code) => {
+        rec.on("close", async (code) => {
             console.log(`🎤 Recording stopped (Exit code: ${code})`);
+
+            // ✅ Ensure file is fully written
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             if (!fs.existsSync(outputFile)) {
                 console.error("❌ ERROR: Audio file was not created!");
@@ -40,7 +42,7 @@ export default function recordAudio() {
 
             const fileSize = fs.statSync(outputFile).size;
             if (fileSize === 0) {
-                console.error("❌ ERROR: Audio file is empty! Sox may not be recording.");
+                console.error("❌ ERROR: Audio file is empty! Recording failed.");
                 return reject("Recording failed: Empty audio file.");
             }
 
