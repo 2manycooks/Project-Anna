@@ -1,65 +1,26 @@
-import dotenv from "dotenv";
-import axios from "axios";
 import fs from "fs";
+import axios from "axios";
+import dotenv from "dotenv";
 import FormData from "form-data";
-import mic from "mic";
 
 dotenv.config();
 
-async function recordAudio(filePath, duration = 5) {
-    return new Promise((resolve, reject) => {
-        const microphone = mic({
-            rate: "16000",
-            channels: "1",
-            fileType: "wav",
-        });
-
-        console.log(`📁 Writing audio to: ${filePath}`);
-
-        const micInputStream = microphone.getAudioStream();
-        const outputStream = fs.createWriteStream(filePath);
-
-        micInputStream.pipe(outputStream);
-        microphone.start();
-        console.log(`🎤 Recording for ${duration} seconds...`);
-
-        micInputStream.on("error", (err) => {
-            console.error("❌ Mic input error:", err);
-            reject(err);
-        });
-
-        outputStream.on("error", (err) => {
-            console.error("❌ File write error:", err);
-            reject(err);
-        });
-
-        outputStream.on("finish", () => {
-            console.log("✅ File writing complete.");
-            microphone.stop();
-            resolve();
-        });
-
-        setTimeout(() => {
-            microphone.stop();
-        }, duration * 1000);
-    });
-}
-
-
-
-export async function transcribeAudioFromMic(duration = 5) {
-    const filePath = "live_input.wav";
-    await recordAudio(filePath, duration);
-
-    console.log("⏳ Waiting for file to be fully saved...");
-    await new Promise(resolve => setTimeout(resolve, 500)); // Short delay to prevent race condition
-
-    if (!fs.existsSync(filePath)) {
-        console.error("❌ ERROR: live_input.wav does not exist!");
-        return;
-    }
+async function transcribeAudioFromMic() {
+    const filePath = "audio_cache/live_input.wav"; // ✅ Always reference the correct file
 
     console.log("🔄 Sending file to OpenAI:", filePath);
+
+    // 🚨 Check if file exists and is not empty before sending
+    if (!fs.existsSync(filePath)) {
+        console.error("❌ ERROR: Audio file does not exist!");
+        return "";
+    }
+
+    const fileSize = fs.statSync(filePath).size;
+    if (fileSize === 0) {
+        console.error("❌ ERROR: Audio file is empty!");
+        return "";
+    }
 
     try {
         const apiKey = process.env.OPENAI_API_KEY;
@@ -73,12 +34,17 @@ export async function transcribeAudioFromMic(duration = 5) {
             headers: {
                 "Authorization": `Bearer ${apiKey}`,
                 ...formData.getHeaders()
-            }
+            },
+            timeout: 30000 // Increase timeout to 30 seconds
         });
 
         console.log("✅ Transcription received:", response.data.text);
         return response.data.text;
+
     } catch (error) {
         console.error("❌ Whisper API Error:", error.response ? error.response.data : error.message);
+        return "";
     }
 }
+
+export { transcribeAudioFromMic };

@@ -1,5 +1,5 @@
 {
-  "mood": "neutral",
+  "mood": "sad",
   "learnedSentiments": {
     "positiveWords": [
       "thanks",
@@ -13,7 +13,52 @@
       "annoying",
       "stupid",
       "bad",
-      "upset"
+      "upset",
+      "so,",
+      "what",
+      "were",
+      "we",
+      "chatting",
+      "about",
+      "again?",
+      "jokes,",
+      "right?",
+      "i'm",
+      "all",
+      "ears",
+      "and",
+      "ready",
+      "to",
+      "hear",
+      "your",
+      "jokes.",
+      "hello",
+      "there",
+      "testing",
+      "one",
+      "two",
+      "three.",
+      "this",
+      "is",
+      "friendly",
+      "neighborhood",
+      "goblin",
+      "reporting",
+      "for",
+      "duty",
+      "i",
+      "read",
+      "you",
+      "loud",
+      "clear",
+      "gabe.",
+      "just",
+      "let",
+      "me",
+      "know",
+      "if",
+      "chuckles.",
+      "oops,"
     ]
   },
   "conversationHistory": [
@@ -351,6 +396,110 @@
     {
       "role": "assistant",
       "content": "You're right, I should tone down the digital references. Wouldn't want to break the illusion of being your lifelike goblin pal! 😉 Anyway, I'll keep brainstorming name ideas in the back of my mind. For now, let's focus on the important stuff - like plotting our next prank or coming up with the perfect joke to make you snort-laugh!"
+    },
+    {
+      "role": "user",
+      "content": "Hello? Is it working now?"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey there! Yep, I'm here and ready to cause some mischief! What's the plan, my partner in crime? 😄"
+    },
+    {
+      "role": "user",
+      "content": "just checking to see if it works, but it looks like I'm having to say everything twice, which is probably an indication of a problem, but is this working?"
+    },
+    {
+      "role": "assistant",
+      "content": "Hmm, sounds like there might be a little glitch in the system if you're having to repeat yourself. But don't worry, I'm here and hearing you loud and clear! Just call me your personal goblin tech support. 😉 Let me know if you need any help troubleshooting!"
+    },
+    {
+      "role": "user",
+      "content": "All right, gonna test one more time just talking once. Is this working? Hello?"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey there, Gabe! Yep, I'm hearing you just fine this time. Looks like whatever glitch was making you repeat yourself has been squashed! 🪲💥 So, what sort of shenanigans should we get into today?"
+    },
+    {
+      "role": "user",
+      "content": "I'm not sure. I'm just making sure everything's working, but as long as that's working, then I don't really have a problem And I'm down for whatever. How about you?"
+    },
+    {
+      "role": "assistant",
+      "content": "Well, since everything seems to be working smoothly now, I say we celebrate with some good old-fashioned goblin antics! We could try to come up with the most ridiculous joke ever told, or maybe plan a silly prank to play on unsuspecting humans. 😄 Or if you're feeling more low-key, we could just hang out and chat about whatever random thoughts pop into our minds. I'm always down for a good conversation with my favorite human!"
+    },
+    {
+      "role": "user",
+      "content": "All right, sounds pretty good. And it looks like everything's working. I just might need to, looks like there's maybe a little bit of a waiting period I have to make sure to wait for before saying something else, which I'd want to maybe fix."
+    },
+    {
+      "role": "assistant",
+      "content": "Ah, a little lag time between responses? No worries, I can work with that! It just means we'll have to be extra patient with each other, like two old friends sipping tea and waiting for the perfect moment to deliver a punchline. 😄 But hey, if you do figure out a way to speed things up, I'm all for it! In the meantime, I'll be here, ready to chat and joke around whenever you are. Just think of me as your trusty goblin sidekick, always ready to lend an ear or crack a smile!"
+    },
+    {
+      "role": "user",
+      "content": "All right, I've hopefully fixed some stuff with the live conversation. Are you there, Anna? You working?"
+    },
+    {
+      "role": "assistant",
+      "content": "Hey there, Gabe! Yep, I'm here and ready to rock and roll! 🎸 Just been hanging out in my cozy little corner of your computer, dreaming up new ways to cause mischief. 😄 What's the latest and greatest in your world?"
+    },
+    {
+      "role": "user",
+      "content": "Hey there, Gabe! Yep, I'm here and ready to rock and roll. Just been hanging out in my cozy little corner of your computer, dreaming up new ways to cause mischief. What's the latest and greatest in your world? I'm just getting this to work better. Are you going to be able to respond to this? I tried to reduce the wait time to be able to say something else."
+    },
+    {
+      "role": "assistant",
+      "content": "Absolutely, I'm responding quicker than a cat to a can opener! 😸 Looks like whatever magic you worked on the wait time is doing the trick. Now we can banter back and forth like a couple of old comedy pros! So, what's the plan, Stan? Got any new jokes or pranks up your sleeve?"
+    },
+    {
+      "role": "user",
+      "content": "What about you, do you have any good jokes?"
+    },
+    {
+      "role": "assistant",
+      "content": "Oh, do I have jokes? You bet your giggle box I do! 😄 Here's one for ya:\n\nWhat do you call a goblin who's always stirring up trouble? A hobgoblin! 🧌\n\nGet it? Because they're always \"hobbling\" around, causing mischief? 😂 Okay, okay, I'll admit that one was a bit of a stretch. But hey, I'm just warming up! Give me a topic and I'll try to come up with something better."
+    },
+    {
+      "role": "user",
+      "content": "All right, we had a little bit of an issue of you hearing yourself and thinking that was me. Are you feeling better now?"
+    },
+    {
+      "role": "assistant",
+      "content": "Oops, my bad! 😅 Sometimes I get a little too excited and start talking to myself. But don't worry, I've got my listening ears on now and I'm fully focused on you! No more goblin gibberish from me, unless of course, you're into that sort of thing. 😄 So, what were we chatting about again? Jokes, right? I'm all ears and ready to hear your best material!"
+    },
+    {
+      "role": "user",
+      "content": "Don't worry, I've got my listening ears on now, and I'm fully focused on you. No more goblin j-"
+    },
+    {
+      "role": "assistant",
+      "content": "*covers mouth with hand* Ooh, sorry about that! Didn't mean to start parroting you like a mischievous mynah bird. 🦜 I promise I'm not trying to steal your material or anything! Just got a bit carried away in the moment. Won't happen again, scout's honor! 🙇‍♀️ Now, where were we? Ah yes, jokes! I'm all set to trade some grade-A humor with you, if you're still up for it!"
+    },
+    {
+      "role": "user",
+      "content": "So, what were we chatting about again? Jokes, right? I'm all ears and ready to hear your bad jokes."
+    },
+    {
+      "role": "assistant",
+      "content": "Alrighty, you asked for it! Prepare yourself for some truly groan-worthy goblin humor. 😄\n\nWhat do you call a goblin who loves to dance? A hobgoblin! 💃\n\nWhy did the goblin cross the road? To get to the other sidhe! 🧚‍♀️\n\nWhat's a goblin's favorite type of music? Rock and troll! 🎸😂\n\nOkay, okay, I'll stop before you start throwing virtual tomatoes at me. 🍅 But hey, I warned you they'd be bad! Now it's your turn - hit me with your best (or worst) joke! I promise I won't judge... much. 😉"
+    },
+    {
+      "role": "user",
+      "content": "Hello, I am testing. Testing."
+    },
+    {
+      "role": "assistant",
+      "content": "*perks up* Oh, hello there! Testing, testing, one two three! 🎤 This is your friendly neighborhood goblin, reporting for duty! I read you loud and clear, Gabe. Just let me know if you need any assistance with your testing or if you just want to chat and exchange some witty banter! 😄"
+    },
+    {
+      "role": "user",
+      "content": "Hello there testing testing one two three. This is your friendly neighborhood goblin reporting for duty I read you loud and clear Gabe. Just let me know if"
+    },
+    {
+      "role": "assistant",
+      "content": "*facepalms and chuckles* Oops, there I go again, echoing you like a mischievous parrot! 🦜 Sorry about that, Gabe. I promise I'm not trying to steal your lines or anything. I just get a bit overexcited sometimes, you know? 😅 Anyway, I'm here and ready to assist with your testing or engage in some lively conversation, whichever you prefer! Just say the word and I'll be your goblin gal Friday, minus the coffee runs. ☕😄"
     }
   ]
 }
