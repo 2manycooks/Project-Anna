@@ -34,25 +34,21 @@ function saveMemory(memory) {
 function analyzeSentiment(userInput, memory) {
     let sentiment = "neutral";
     let learned = memory.learnedSentiments;
+    let words = userInput.toLowerCase().split(" ");
 
-    // Check learned positive words
-    for (let word of learned.positiveWords) {
-        if (userInput.toLowerCase().includes(word)) {
-            sentiment = "positive";
-            break;
-        }
-    }
+    // Weighted sentiment scoring
+    let positiveMatches = words.filter(word => learned.positiveWords.includes(word)).length;
+    let negativeMatches = words.filter(word => learned.negativeWords.includes(word)).length;
 
-    // Check learned negative words
-    for (let word of learned.negativeWords) {
-        if (userInput.toLowerCase().includes(word)) {
-            sentiment = "negative";
-            break;
-        }
+    if (positiveMatches > negativeMatches) {
+        sentiment = "positive";
+    } else if (negativeMatches > positiveMatches) {
+        sentiment = "negative";
     }
 
     return sentiment;
 }
+
 
 // Adjust Anna’s mood based on sentiment
 function adjustMood(memory, sentiment) {
@@ -86,14 +82,40 @@ async function confirmLearning(userInput, memory) {
     let words = userInput.toLowerCase().split(" ");
     let learned = memory.learnedSentiments;
 
-    for (let word of words) {
-        if (!learned.positiveWords.includes(word) && !learned.negativeWords.includes(word)) {
+    let uncertainWords = words.filter(word =>
+        !learned.positiveWords.includes(word) &&
+        !learned.negativeWords.includes(word) &&
+        !["i", "you", "the", "and", "but", "or", "a", "an", "is", "are"].includes(word) // Ignore common words
+    );
+
+    if (uncertainWords.length > 1) {
+        return null; // If multiple unknown words appear, don't ask about all of them
+    }
+
+    if (uncertainWords.length === 1) {
+        let word = uncertainWords[0];
+
+        // Check if word appears in a clearly positive or negative sentence
+        let inferredSentiment = analyzeSentiment(userInput, memory);
+
+        if (inferredSentiment !== "neutral") {
+            // Assume sentiment instead of asking
+            if (inferredSentiment === "positive") {
+                memory.learnedSentiments.positiveWords.push(word);
+            } else {
+                memory.learnedSentiments.negativeWords.push(word);
+            }
+            saveMemory(memory);
+            return null;
+        } else {
+            // Only ask if it's totally ambiguous
             return `Hey! You just used the word "${word}"—should I remember this as something that makes me happy or sad? Or should I just ignore it?`;
         }
     }
 
     return null;
 }
+
 
 // Format messages for Claude API
 function formatClaudeMessages(memory, userInput) {
@@ -150,7 +172,7 @@ export async function getResponse(userInput) {
             }
         );
 
-        const botResponse = response.data.content;
+        const botResponse = response.data.content[0].text;
         console.log("🤖 Anna:", botResponse);
 
         memory.conversationHistory.push({ role: "user", content: userInput });
