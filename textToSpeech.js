@@ -9,18 +9,20 @@ export async function speak(text) {
     console.log("🔊 Generating speech with ElevenLabs...");
 
     const apiKey = process.env.ELEVENLABS_API_KEY;
-    const voiceId = "OWd4FHqvuDkDQdXVlW7Z"; // Try "Bella", "Domi", etc.
+    const voiceId = "OWd4FHqvuDkDQdXVlW7Z"; // Ensure this is set correctly
+
+    console.log("📢 Sending to ElevenLabs:", text); // Log the text input
 
     try {
         const response = await axios.post(
-            `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`,
+            `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
             {
                 text: text,
-                model_id: "eleven_multilingual_v2",
-                voice_settings: { 
-                    stability: 0.75,         // 0.5-0.75 keeps it more natural
-                    similarity_boost: 0.75,  // Closer to original voice
-                    style_exaggeration: 0.75 // Lowering exaggeration = slower, calmer tone
+                model_id: "eleven_multilingual_v2", // Make sure this model is available to you
+                voice_settings: {
+                    stability: 0.4,
+                    similarity_boost: 0.9,
+                    style_exaggeration: 0.75
                 }
             },
             {
@@ -32,9 +34,7 @@ export async function speak(text) {
             }
         );
 
-        console.log("📦 Received response type:", typeof response.data);
-
-        // Save audio to a file
+        // Save the generated audio
         const filePath = "response.mp3";
         fs.writeFileSync(filePath, response.data);
         console.log("✅ Speech saved as response.mp3");
@@ -45,12 +45,6 @@ export async function speak(text) {
         });
 
     } catch (error) {
-        if (error.response) {
-            console.error("❌ ElevenLabs API Error:");
-            console.error("🔹 Status Code:", error.response.status);
-            console.error("🔹 Error Message:", error.response.data);
-        } else {
-            console.error("❌ Request Failed:", error.message);
-        }
+        console.error("❌ ElevenLabs TTS Error:", error.response ? error.response.data : error.message);
     }
 }

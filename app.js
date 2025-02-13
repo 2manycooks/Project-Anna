@@ -5,11 +5,11 @@ import { speak } from "./textToSpeech.js";
 async function runAssistant() {
     console.log("🎙️ Speak now...");
 
-    let transcribedText = await transcribeAudioFromMic(5);
+    let transcribedText = await transcribeAudioFromMic(10);
     console.log("📝 User said:", transcribedText);
 
     let response = await getResponse(transcribedText);
-    console.log("🤖 Anna:", response);
+    // console.log("🤖 Anna:", response);
 
     await speak(response); // Anna speaks her response
 }

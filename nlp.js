@@ -6,7 +6,7 @@ dotenv.config();
 
 const MEMORY_FILE = "memory.json";
 
-// Load full memory
+// Load memory
 function loadMemory() {
     try {
         const data = fs.readFileSync(MEMORY_FILE, "utf8");
@@ -17,7 +17,7 @@ function loadMemory() {
     }
 }
 
-// Save memory to file
+// Save memory
 function saveMemory(history) {
     try {
         fs.writeFileSync(MEMORY_FILE, JSON.stringify(history, null, 2), "utf8");
@@ -26,87 +26,68 @@ function saveMemory(history) {
     }
 }
 
-// Generate a summary of older conversations
-async function summarizeMemory(conversationHistory) {
-    if (conversationHistory.length < 20) return ""; // No need to summarize small histories
+// Format messages for Claude API
+function formatClaudeMessages(conversationHistory, userInput) {
+    let messages = [];
 
-    const oldMessages = conversationHistory.slice(0, -20); // Everything except the last 20
-    const summaryPrompt = `Summarize the following conversation into a short, clear summary:\n\n${JSON.stringify(oldMessages)}`;
+    // First message contains system instructions (as "user" role)
+    messages.push({
+        role: "user",
+        content: "You are Anna, a mischievous and bubbly goblin girl who lives in my computer. You love to joke around, tease me playfully, and add personality to my daily tasks. You're still helpful, but you're also here to have fun and make things entertaining! Try to keep responses to a sentence or two, if not just a single goofy exclamation."
+    });
 
-    try {
-        const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions",
-            {
-                model: "gpt-4",
-                messages: [{ role: "system", content: summaryPrompt }],
-                temperature: 0.5
-            },
-            {
-                headers: {
-                    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+    // Summarize older memory if needed
+    let summarizedMemory = conversationHistory.length > 20
+        ? `Summary of past interactions: ${conversationHistory.slice(0, -20).map(msg => msg.content).join(" ")}`
+        : "";
 
-        return response.data.choices[0].message.content;
-    } catch (error) {
-        console.error("⚠️ Error summarizing memory:", error);
-        return "";
+    if (summarizedMemory) {
+        messages.push({ role: "user", content: summarizedMemory });
     }
+
+    // Add the most recent 20 messages
+    messages.push(...conversationHistory.slice(-20));
+
+    // Append the latest user input
+    messages.push({ role: "user", content: userInput });
+
+    return messages;
 }
 
 export async function getResponse(userInput) {
-    console.log("🤖 Processing response with optimized memory...");
+    console.log("🤖 Processing response with Claude...");
 
     let conversationHistory = loadMemory();
-
-    // Generate a summary of older interactions
-    let summarizedMemory = await summarizeMemory(conversationHistory);
-
-    // Keep only the last 20 exchanges in full
-    let recentMessages = conversationHistory.slice(-20);
-
-    // Construct the final message history for GPT
-    let messageHistory = [
-        { role: "system", content: "You are Anna, a lifelike AI model, intended to act as a goofy character, companion, and occasional assistant. You should remember previous interactions and respond conversationally." }
-    ];
-
-    if (summarizedMemory) {
-        messageHistory.push({ role: "system", content: `Here is a summary of past interactions: ${summarizedMemory}` });
-    }
-
-    messageHistory.push(...recentMessages);
-    messageHistory.push({ role: "user", content: userInput });
+    let formattedMessages = formatClaudeMessages(conversationHistory, userInput);
 
     try {
         const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions",
+            "https://api.anthropic.com/v1/messages",
             {
-                model: "gpt-4",
-                messages: messageHistory,
-                temperature: 0.7
+                model: "claude-3-5-sonnet-20241022",
+                max_tokens: 500,
+                temperature: 0.7,
+                messages: formattedMessages
             },
             {
                 headers: {
-                    "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-                    "Content-Type": "application/json"
+                    "x-api-key": process.env.CLAUDE_API_KEY,
+                    "Content-Type": "application/json",
+                    "anthropic-version": "2023-06-01"
                 }
             }
         );
 
-        const botResponse = response.data.choices[0].message.content;
-        console.log("🤖 Anna:", botResponse);
+        const botResponse = response.data.content[0].text;
+        // console.log("🤖 Anna:", botResponse);
 
-        // Add both user input and AI response to memory
         conversationHistory.push({ role: "user", content: userInput });
         conversationHistory.push({ role: "assistant", content: botResponse });
 
-        // Save updated memory
         saveMemory(conversationHistory);
 
         return botResponse;
     } catch (error) {
-        console.error("❌ GPT-4 Error:", error.response ? error.response.data : error.message);
+        console.error("❌ Claude API Error:", error.response ? error.response.data : error.message);
     }
 }
