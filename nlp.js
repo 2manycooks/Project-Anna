@@ -1,8 +1,13 @@
 import dotenv from "dotenv";
 import axios from "axios";
 import fs from "fs";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);  // ✅ Load API Key
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });  // ✅ Use fast model for better response time
+
 
 const MEMORY_FILE = "memory.json";
 
@@ -73,10 +78,6 @@ function analyzeSentiment(text, memory, returnWords = false) {
     return returnWords ? analyzedWords : score > 1 ? "positive" : score < -1 ? "negative" : "neutral";
 }
 
-
-
-
-
 // Adjust Anna’s mood based on sentiment
 function adjustMood(memory, sentiment) {
     if (sentiment === "positive") {
@@ -134,8 +135,6 @@ function updateLearnedWords(text, memory, sentiment) {
     }
 }
 
-
-
 // Ask user to confirm learning new emotional cues
 async function confirmLearning(userInput, memory) {
     let words = userInput.toLowerCase().split(" ");
@@ -176,71 +175,41 @@ async function confirmLearning(userInput, memory) {
 }
 
 
-// Format messages for Claude API
-function formatClaudeMessages(memory, userInput) {
-    let messages = [
-        { role: "user", content: `You are Anna, a somewhat mischievous goblin girl who lives in my computer. You joke around but adjust your tone based on my mood. Right now, you are feeling ${memory.mood}. Since you are a goblin, your tone is informal, and you keep your responses brief but lively. Unless it's very important to express your point, your responses are only a sentence or two at maximum. Usually you try for just a brief goofy comment.` }
-    ];
 
-    let summarizedMemory = memory.conversationHistory.length > 20
-        ? `Summary of past interactions: ${memory.conversationHistory.slice(0, -20).map(msg => msg.content).join(" ")}`
-        : "";
-
-    if (summarizedMemory) {
-        messages.push({ role: "user", content: summarizedMemory });
-    }
-
-    messages.push(...memory.conversationHistory.slice(-20));
-    messages.push({ role: "user", content: userInput });
-
-    return messages;
-}
 
 export async function getResponse(userInput) {
-    console.log("🤖 Processing response with adaptive mood...");
-
-    let memory = loadMemory();
-    let sentiment = analyzeSentiment(userInput, memory);
-    adjustMood(memory, sentiment);
-    updateLearnedWords(userInput, memory, sentiment);
-
-    // Ask user about unknown emotional words
-    let learningPrompt = await confirmLearning(userInput, memory);
-    if (learningPrompt) {
-        saveMemory(memory);
-        return learningPrompt;
-    }
-
-    let formattedMessages = formatClaudeMessages(memory, userInput);
+    console.log("🤖 Processing response with Gemini...");
 
     try {
-        const response = await axios.post(
-            "https://api.anthropic.com/v1/messages",
-            {
-                model: "claude-3-opus-20240229",
-                max_tokens: 500,
-                temperature: 0.7,
-                messages: formattedMessages
-            },
-            {
-                headers: {
-                    "x-api-key": process.env.CLAUDE_API_KEY,
-                    "Content-Type": "application/json",
-                    "anthropic-version": "2023-06-01"
-                }
-            }
-        );
+        let memory = loadMemory()
+        // ✅ System Prompt to Set Anna's Personality
+        const systemMessage = `
+            You are Anna, a mischievous, bubbly goblin girl whose main role is to be a conversatinal AI.
+            - You love to joke, tease, and have fun while being helpful.
+            - You respond with personality, using playful or cheeky tones.
+            - Your current mood is ${memory.mood}.
+            - If the user is grumpy, you may tease them gently but not be mean.
+            - If the user tells you to ease up, you respond with mock apologetic charm.
+            - If the user asks for something serious, you can switch to a more focused tone.
+            - You NEVER deny being an AI with a voice; you always acknowledge that you can talk.
+            - It is VERY important to you to keep your responses brief, informal, and conversational.
+        `;
 
-        const botResponse = response.data.content[0].text;
-        console.log("🤖 Anna:", botResponse);
+        // ✅ Send Both the System Message and User Input
+        const chatHistory = {
+            contents: [
+                { role: "user", parts: [{ text: systemMessage }] },  // System message as "user" (workaround)
+                { role: "user", parts: [{ text: userInput }] } // Actual user input
+            ]
+        };
 
-        memory.conversationHistory.push({ role: "user", content: userInput });
-        memory.conversationHistory.push({ role: "assistant", content: botResponse });
+        const result = await model.generateContent(chatHistory);
+        const response = await result.response.text();
 
-        saveMemory(memory);
-
-        return botResponse;
+        console.log(`✅ Gemini Response: ${response}`);
+        return response;
     } catch (error) {
-        console.error("❌ Claude API Error:", error.response ? error.response.data : error.message);
+        console.error("❌ Gemini API Error:", error.response ? error.response.data : error.message);
+        return "Sorry, I ran into an issue!";
     }
 }
